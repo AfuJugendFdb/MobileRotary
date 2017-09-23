@@ -1,0 +1,14 @@
+Pinbelegung Mikrocontroller - Matrix
+=====================================
+
+1. Zeile: 	PB0
+2. Zeile:	PB1
+3. Zeile:	PB2
+4. Zeile:	PB3
+5. Zeile: 	PB4
+
+1. Spalte:	PB6
+2. Spalte:	PB7
+3. Spalte:	PB5
+
+
