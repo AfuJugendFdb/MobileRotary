@@ -75,15 +75,17 @@ void dial_10(void) {
 }
 
 void dial_red(void) {
-    PORTB |= (1<<PB0) | (1<<PB6);
+    PORTB |= (1<<PB0) | (1<<PB5);
     _delay_ms(500);
     PORTB = 0x00;
 }
 
 void dial_green(void) {
-    PORTB |= (1<<PB0) | (1<<PB5);
+    PORTB |= (1<<PB6);
+    PORTC |= (1<<PC5);
     _delay_ms(500);
     PORTB = 0x00;
+    PORTC = 0x00;
 }
 
 
@@ -117,7 +119,7 @@ uint8_t getDigit(void) {
 	}
 }
 
-uint8_t getGabelState()
+uint8_t getGabelState(void)
 {
 	//Gabel an PD3 auf 1?
 	if((PIND & (1 << PD3)) != 0)
@@ -132,9 +134,11 @@ uint8_t getGabelState()
 
 int main(void) {
     
-    DDRB = 0xff;
+    DDRB = 0xff;	//Matrix
+    DDRD = 0x00;	//Scheibe
+    DDRC = 0xff;	//Gabel
     PORTB = 0x00;
-    DDRD = 0x00;
+    PORTC = 0x00;
     
     init_counter();
     
