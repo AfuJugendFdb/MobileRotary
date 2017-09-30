@@ -87,7 +87,24 @@ void dial_green(void) {
     PORTB = 0x00;
     PORTC = 0x00;
 }
-
+void dial_ok(void) {
+	PORTB |= (1<<PB7);
+    PORTC |= (1<<PC5);
+    _delay_ms(500);
+    PORTB = 0x00;
+    PORTC = 0x00;
+	}
+void startup(void){
+	dial_1();
+	_delay_ms(500);
+	dial_1();
+	_delay_ms(500);
+	dial_1();
+	_delay_ms(500);
+	dial_1();
+	_delay_ms(500);
+	dial_ok();
+}
 
 uint8_t getDigit(void) {
     uint8_t counter_prim = 0;
@@ -141,6 +158,8 @@ int main(void) {
     PORTC = 0x00;
     
     init_counter();
+    startup();
+    
     
     while(1) {
 		
