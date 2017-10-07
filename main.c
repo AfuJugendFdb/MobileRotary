@@ -1,3 +1,4 @@
+#include "main.h"
 #include <avr/io.h>
 #include <util/delay.h>
 
@@ -68,7 +69,7 @@ void dial_9(void) {
     PORTB = 0x00;
 }
 
-void dial_10(void) {
+void dial_10(void) {	//waehlt 0, = 10 Impulse auf der Waehlscheibe
     PORTB |= (1<<PB4) | (1<<PB7);
     _delay_ms(200);
     PORTB = 0x00;
@@ -93,12 +94,14 @@ void dial_ok(void) {
     _delay_ms(500);
     PORTB = 0x00;
     PORTC = 0x00;
-	}
-void dial_okamStart(void){
+}
+
+void dial_okamStart(void) {
 	PORTB |= (1<<PB0) | (1<<PB5);
     _delay_ms(2500);			//roten höhrer lange gedrückt halten
     PORTB = 0x00;
 }
+
 void startup(void){
 	dial_okamStart();			//methode aufrufen
 	_delay_ms(15000);			//warten bis telefon hochgefahren
@@ -117,11 +120,6 @@ uint8_t getDigit(void) {
     uint8_t counter_prim = 0;
     uint8_t counter_sec = 0;
     
-    /*
-    reset_counter();
-    
-    while (TCNT0 == 0); //Endlosschleife solange Counter == 0, "Ruhezustand"
-    */
     if(TCNT0 == 0)
     {
 		return 0xFF;
@@ -219,35 +217,10 @@ int main(void) {
             case 9:
                 dial_9();
                 break;
-            case 10:
+            case 10:	//10 Impulse der Waehlscheibe = Zahl 0
                 dial_10();
                 break;
         }
         
-    }
-}
-
-int debug(void) {
-    DDRB = 0xff;
-    PORTB = 0x00;
-    while(1) {
-        dial_1();
-        _delay_ms(2000);
-        dial_2();
-        _delay_ms(2000);
-        dial_3();
-        _delay_ms(2000);
-        dial_4();
-        _delay_ms(2000);
-        dial_5();
-        _delay_ms(2000);
-        dial_6();
-        _delay_ms(2000);
-        dial_7();
-        _delay_ms(2000);
-        dial_8();
-        _delay_ms(2000);
-        dial_9();
-        _delay_ms(2000);
     }
 }
