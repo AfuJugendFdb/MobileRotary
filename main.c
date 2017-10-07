@@ -94,8 +94,15 @@ void dial_ok(void) {
     PORTB = 0x00;
     PORTC = 0x00;
 	}
+void dial_okamStart(void){
+	PORTB |= (1<<PB0) | (1<<PB5);
+    _delay_ms(2500);			//roten höhrer lange gedrückt halten
+    PORTB = 0x00;
+}
 void startup(void){
-	dial_1();
+	dial_okamStart();			//methode aufrufen
+	_delay_ms(15000);			//warten bis telefon hochgefahren
+	dial_1();					//pin eingeben
 	_delay_ms(500);
 	dial_1();
 	_delay_ms(500);
@@ -103,7 +110,7 @@ void startup(void){
 	_delay_ms(500);
 	dial_1();
 	_delay_ms(500);
-	dial_ok();
+	dial_ok();					//ok drücken
 }
 
 uint8_t getDigit(void) {
